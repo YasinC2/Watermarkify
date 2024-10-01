@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #495057;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #3c4146;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    --text: 'Watermarkify';
+    --padding: 20px;
+    --rotation: 45deg;
+    --color: #000;
+    --opacity: 0.5;
+    --font-size: 16px;
+    --font-weight: 400;
+}
+
+.frame-container {
+    outline: 3px solid #313131;
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow: hidden;
+    background: #fff;
+    width: min(90%, 900px);
+}
+
+.frame {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.frame::before {
+    content: 'Upload Image from left panel.';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 0;
+    color: #000;
+}
+
+.watermark-text-container {
+    position: relative;
+    width: 135%;
+    height: 130%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translate(-10%, -10%);
+}
+
+span.watermark-text {
+    display: inline-block;
+    padding: var(--padding);
+    transform: rotate(var(--rotation));
+    color: var(--color);
+    opacity: var(--opacity);
+    font-size: var(--font-size);
+    font-weight: var(--font-weight);
+}
+
+span.watermark-text::before {
+    content: var(--text);
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    position: relative;
+    z-index: 0;
+}
+
+.lh-0 {
+    line-height: 0;
+}
+
+.fs-7 {
+    font-size: 0.7rem !important;
+}

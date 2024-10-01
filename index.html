@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="logo.svg" sizes="any" type="image/svg+xml">
+        <title>Watermarkify</title>
+        <link rel="stylesheet" href="libs/bootstrap.min.css">
+        <link rel="stylesheet" href="main.css">
+    </head>
+
+    <body class="bg-dark-subtle">
+        <div class="container-fluid h-100">
+            <div class="row h-100">
+                <div class="col-12 col-lg-3 py-3">
+                    <div class="bg-dark rounded-4 text-light shadow p-4 position-fixed border" style="height: 95vh; top: 20px;overflow-y: auto;">
+                        <div class="d-flex align-items-start mb-4">
+                            <img src="logo.svg" alt="Watermarkify" width="40" class="d-inline-block me-2">
+                            <h2 class="d-inline-block">Watermarkify</h2>
+                        </div>
+                        <div class="">
+                            <input type="file" id="imageLoader" name="imageLoader" />
+
+                        </div>
+                        <hr>
+                        <div class="" id="watermark-setting">
+                            <h5>Watermark Setting</h5>
+                            <label class="d-block mb-2">
+                                <span>Text</span>
+                                <input type="text" class="form-control form-control-sm" value="Watermarkify" id="watermark-text">
+                            </label>
+                            <label class="d-block mb-2">
+                                <span>Color</span>
+                                <input type="color" class="form-control form-control-color w-100" value="#000" id="watermark-color">
+                            </label>
+                            <label class="d-block mb-2">
+                                <span>Size</span>
+                                <input type="range" class="form-range" min="0" max="100" step="1" value="16" id="watermark-size">
+                            </label>
+                            <label class="d-block mb-2">
+                                <span>Opacity</span>
+                                <input type="range" class="form-range" min="0" max="1" step="0.1" value="0.5" id="watermark-opacity">
+                            </label>
+                            <label class="d-block mb-2">
+                                <span>Spacing</span>
+                                <input type="range" class="form-range" min="0" max="300" step="10" value="20" id="watermark-spacing">
+                            </label>
+                            <label class="d-block mb-2">
+                                <span>Rotation</span>
+                                <input type="range" class="form-range" min="0" max="360" step="15" value="45" id="watermark-rotation">
+                            </label>
+                            <label class="d-block mb-2">
+                                <span>Font Weight</span>
+                                <input type="range" class="form-range" min="100" max="900" step="100" value="400" id="watermark-weight">
+                            </label>
+                        </div>
+                        <div class="d-none">
+                            Effect
+                        </div>
+                        <hr>
+                        <div class="" id="watermark-setting">
+                            <h5>Export Setting</h5>
+                            <label class="d-block mb-2">
+                                <span>Quality</span>
+                                <select class="form-select form-select-sm" aria-label="Small select example" id="export-scale">
+                                    <option value="1">Low quality</option>
+                                    <option value="2">Medium quality</option>
+                                    <option value="3" selected>High quality</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-9 d-flex align-items-start justify-content-center p-4">
+                    <div class="frame-container mt-5 rounded-4">
+                        <div class="frame">
+                            <!-- <img src="pic.png" alt=""> -->
+                            <canvas id="imageCanvas"></canvas>
+                            <div class="watermark-text-container" id='parentElement'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="position-fixed" style="top: 10px; right: 10px;">
+            <a class="btn btn-dark rounded-3 border p-2 lh-0" id="info-btn" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Watermarkify?">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.475 5.458c-.284 0-.514-.237-.47-.517C4.28 3.24 5.576 2 7.825 2c2.25 0 3.767 1.36 3.767 3.215 0 1.344-.665 2.288-1.79 2.973-1.1.659-1.414 1.118-1.414 2.01v.03a.5.5 0 0 1-.5.5h-.77a.5.5 0 0 1-.5-.495l-.003-.2c-.043-1.221.477-2.001 1.645-2.712 1.03-.632 1.397-1.135 1.397-2.028 0-.979-.758-1.698-1.926-1.698-1.009 0-1.71.529-1.938 1.402-.066.254-.278.461-.54.461h-.777ZM7.496 14c.622 0 1.095-.474 1.095-1.09 0-.618-.473-1.092-1.095-1.092-.606 0-1.087.474-1.087 1.091S6.89 14 7.496 14" />
+                </svg>
+            </a>
+            <a class="btn btn-dark rounded-3 border p-2 lh-0" id="security-btn" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Security">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-shield-fill-check" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.8 11.8 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7 7 0 0 0 1.048-.625 11.8 11.8 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.54 1.54 0 0 0-1.044-1.263 63 63 0 0 0-2.887-.87C9.843.266 8.69 0 8 0m2.146 5.146a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793z" />
+                </svg>
+            </a>
+            <a href="https://github.com/yasinc2/watermarkify" target="_blank" class="btn btn-dark rounded-3 border p-2 lh-0" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Github">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8" />
+                </svg>
+            </a>
+            <a id="download" class="btn btn-dark rounded-3 border p-2 lh-0 ms-3" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Save Image">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-floppy-fill" viewBox="0 0 16 16">
+                    <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5z" />
+                    <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5zM9 1h2v4H9z" />
+                </svg>
+            </a>
+            <a id="save" style="display: none;"></a>
+        </div>
+
+        <div class="position-fixed d-flex align-items-center justify-content-center fs-7 text-muted" style="bottom: 10px; right: 10px;">
+            Made with
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-suit-heart-fill mx-1" viewBox="0 0 16 16">
+                <path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
+            </svg>
+            and
+            <svg fill="currentColor" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="14" height="14" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve" class="mx-1">
+                <g id="5151e0c8492e5103c096af88a51e7e7e">
+                    <path display="inline" d="M218.195,257.521c0,64.719,4.624,119.1-27.309,151.283c-17.961,18.105-46.301,28.772-81.17,28.772
+                        c-57.192,0-88.947-27.862-109.215-66.416c19.512-12.459,39.452-24.502,59.775-36.154c8.292,23.188,36.291,49.258,67.888,33.21
+                        c20.027-10.18,17.715-41.04,17.715-74.537c0-69.549,0-149.78,0-212.528c-0.063-1.044-0.125-2.087,0.732-2.214
+                        c23.866,0,47.728,0,71.585,0C218.195,134.832,218.195,198.069,218.195,257.521z M399.727,215.462
+                        c-18.247-7.814-40.928-17.058-46.488-33.952c-6.233-18.934,4.396-34.533,16.231-39.841c26.023-11.688,57.038,7.556,63.463,27.301
+                        c19.583-11.657,39.103-23.384,56.826-36.896c-20.826-34.584-51.354-59.342-107.003-57.561
+                        c-30.64,0.979-53.657,10.652-70.841,25.088c-16.771,14.085-29.721,33.854-31.737,61.989
+                        c-6.025,84.212,56.988,105.708,110.695,129.137c16.93,7.385,35.751,14.842,43.54,29.517c16.061,30.282-12.389,50.26-36.898,52.397
+                        c-39.336,3.427-65.858-19.587-81.175-43.54c-19.133,11.86-39.938,22.045-58.298,34.683c25.537,44.908,67.409,73.98,132.831,73.793
+                        c66.74-0.188,116.219-32.366,120.281-92.977C516.677,262.216,454.956,239.105,399.727,215.462z">
+                    </path>
+                </g>
+            </svg>
+        </div>
+
+        <div class="modal fade" id="security-modal" tabindex="-1" aria-labelledby="securityModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="securityModal">Your Privacy Matters!</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Your data is in your control. All processing is done locally on your device, ensuring that your files remain confidential. We never transfer or store your images on our/any servers, so you can enjoy watermarking your photos with peace of mind!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="info-modal" tabindex="-1" aria-labelledby="infoModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="infoModal">What is Watermarkify?</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Watermarkify is a simple, free and open-source tool designed to help you effortlessly add watermarks or copyright notices to your images and photos. With an intuitive interface, Watermarkify allows you to customize your watermark with a variety of fonts, sizes, and styles, ensuring that your branding shines through.
+                            <br><br>
+                            Whether you’re a photographer, artist, or content creator, Watermarkify makes it easy to protect your creative work. Simply upload your image, choose your watermark settings, and apply it in just a few clicks. The tool is perfect for anyone looking to safeguard their intellectual property while maintaining a professional look.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="libs/html2canvas.min.js"></script>
+        <script src="libs/jquery-3.7.1.slim.min.js"></script>
+        <script src="libs/bootstrap.bundle.js"></script>
+        <script src="main.js"></script>
+    </body>
+
+</html>
