@@ -76,13 +76,13 @@ body {
 .watermark-text-container {
     position: relative;
     width: 135%;
-    height: 130%;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    transform: translate(-10%, -10%);
+    transform: translate(-2%, -2%);
 }
 
 span.watermark-text {
@@ -112,4 +112,8 @@ canvas {
 
 .fs-7 {
     font-size: 0.7rem !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }

@@ -8,9 +8,8 @@ $(function () {
 
     var parentElement = document.getElementById('parentElement');
     var elements = Array.from({
-        length: 300
+        length: 600
     }, _ => parentElement.insertAdjacentHTML("beforeend", '<span class="watermark-text"></span>'));
-    // parentElement.append(...elements);
 
     var dlBtn = document.getElementById("download");
     dlBtn.addEventListener("click", function () {
@@ -18,18 +17,10 @@ $(function () {
 
         html2canvas(document.querySelector(".frame"), {
             backgroundColor: null,
-            // canvas: document.getElementById("canvasSave"),
-            // width: imgSize.width / 4,
-            // height: imgSize.height / 4,
-            // windowWidth: imgSize.width,
-            // windowHeight: imgSize.height,
             scale: imgQuality
 
         }).then((canvas) => {
-            // canvas.width = canvasSize;
-            // canvas.height = canvasSize;
             console.log(canvas);
-            // document.body.appendChild(canvas);
             var name = $("#watermark-text").val();
 
             download(canvas, name + "-Watermarkify");
@@ -78,12 +69,6 @@ $(function () {
         var opacity = $("#watermark-opacity").val();
         var size = $("#watermark-size").val();
         var weight = $("#watermark-weight").val();
-
-        // console.log(spacing);
-        // console.log(rotation);
-        // console.log(color);
-        // console.log(opacity);
-        // console.log(size);
 
         $("body").css({
             "--text": "'" + text + "'",

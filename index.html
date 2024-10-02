@@ -14,61 +14,71 @@
         <div class="container-fluid h-100">
             <div class="row h-100">
                 <div class="col-12 col-lg-3 py-3">
-                    <div class="bg-dark rounded-4 text-light shadow p-4 position-fixed border" style="height: 95vh; top: 20px;overflow-y: auto;">
-                        <div class="d-flex align-items-start mb-4">
-                            <img src="logo.svg" alt="Watermarkify" width="40" class="d-inline-block me-2">
-                            <h2 class="d-inline-block">Watermarkify</h2>
-                        </div>
-                        <div class="">
-                            <input type="file" id="imageLoader" name="imageLoader" />
-
-                        </div>
-                        <hr>
-                        <div class="" id="watermark-setting">
-                            <h5>Watermark Setting</h5>
-                            <label class="d-block mb-2">
-                                <span>Text</span>
-                                <input type="text" class="form-control form-control-sm" value="Watermarkify" id="watermark-text">
-                            </label>
-                            <label class="d-block mb-2">
-                                <span>Color</span>
-                                <input type="color" class="form-control form-control-color w-100" value="#000" id="watermark-color">
-                            </label>
-                            <label class="d-block mb-2">
-                                <span>Size</span>
-                                <input type="range" class="form-range" min="0" max="100" step="1" value="16" id="watermark-size">
-                            </label>
-                            <label class="d-block mb-2">
-                                <span>Opacity</span>
-                                <input type="range" class="form-range" min="0" max="1" step="0.1" value="0.5" id="watermark-opacity">
-                            </label>
-                            <label class="d-block mb-2">
-                                <span>Spacing</span>
-                                <input type="range" class="form-range" min="0" max="300" step="10" value="20" id="watermark-spacing">
-                            </label>
-                            <label class="d-block mb-2">
-                                <span>Rotation</span>
-                                <input type="range" class="form-range" min="0" max="360" step="15" value="45" id="watermark-rotation">
-                            </label>
-                            <label class="d-block mb-2">
-                                <span>Font Weight</span>
-                                <input type="range" class="form-range" min="100" max="900" step="100" value="400" id="watermark-weight">
-                            </label>
-                        </div>
-                        <div class="d-none">
-                            Effect
-                        </div>
-                        <hr>
-                        <div class="" id="watermark-setting">
-                            <h5>Export Setting</h5>
-                            <label class="d-block mb-2">
-                                <span>Quality</span>
-                                <select class="form-select form-select-sm" aria-label="Small select example" id="export-scale">
-                                    <option value="1">Low quality</option>
-                                    <option value="2">Medium quality</option>
-                                    <option value="3" selected>High quality</option>
-                                </select>
-                            </label>
+                    <div class="bg-dark rounded-4 text-light shadow position-fixed border overflow-hidden" style="height: 95vh; top: 20px;">
+                        <div class="h-100 p-4" style="overflow-y: auto;">
+                            <div class="d-flex align-items-start mb-4">
+                                <img src="logo.svg" alt="Watermarkify" width="40" class="d-inline-block me-2">
+                                <h2 class="d-inline-block">Watermarkify</h2>
+                            </div>
+                            <div class="">
+                                <label for="imageLoader" class="border bg-dark d-flex align-items-center justify-content-center flex-column rounded-3 p-3 position-relative cursor-pointer">
+                                    <input type="file" id="imageLoader" name="imageLoader" class="position-absolute top-0 bottom-0 start-0 end-0 opacity-0 cursor-pointer" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-card-image" viewBox="0 0 16 16">
+                                        <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
+                                        <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z" />
+                                    </svg>
+                                    <span class="fs-7 mt-1 text-center">
+                                        Select or drag your image here
+                                    </span>
+                                </label>
+                            </div>
+                            <hr>
+                            <div class="" id="watermark-setting">
+                                <h5>Watermark Setting</h5>
+                                <label class="d-block mb-2">
+                                    <span>Text</span>
+                                    <input type="text" class="form-control form-control-sm" value="Watermarkify" id="watermark-text">
+                                </label>
+                                <label class="d-block mb-2">
+                                    <span>Color</span>
+                                    <input type="color" class="form-control form-control-color w-100" value="#000" id="watermark-color">
+                                </label>
+                                <label class="d-block mb-2">
+                                    <span>Size</span>
+                                    <input type="range" class="form-range" min="10" max="85" step="1" value="16" id="watermark-size">
+                                </label>
+                                <label class="d-block mb-2">
+                                    <span>Opacity</span>
+                                    <input type="range" class="form-range" min="0" max="1" step="0.1" value="0.5" id="watermark-opacity">
+                                </label>
+                                <label class="d-block mb-2">
+                                    <span>Spacing</span>
+                                    <input type="range" class="form-range" min="0" max="300" step="5" value="20" id="watermark-spacing">
+                                </label>
+                                <label class="d-block mb-2">
+                                    <span>Rotation</span>
+                                    <input type="range" class="form-range" min="0" max="360" step="15" value="45" id="watermark-rotation">
+                                </label>
+                                <label class="d-block mb-2">
+                                    <span>Font Weight</span>
+                                    <input type="range" class="form-range" min="100" max="900" step="100" value="400" id="watermark-weight">
+                                </label>
+                            </div>
+                            <div class="d-none">
+                                Effect
+                            </div>
+                            <hr>
+                            <div class="" id="watermark-setting">
+                                <h5>Export Setting</h5>
+                                <label class="d-block mb-2">
+                                    <span>Quality</span>
+                                    <select class="form-select form-select-sm" aria-label="Small select example" id="export-scale">
+                                        <option value="1">Low quality</option>
+                                        <option value="2">Medium quality</option>
+                                        <option value="3" selected>High quality</option>
+                                    </select>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -156,7 +166,7 @@
                     </div>
                     <div class="modal-body">
                         <p>
-                            Watermarkify is a simple, free and open-source tool designed to help you effortlessly add watermarks or copyright notices to your images and photos. With an intuitive interface, Watermarkify allows you to customize your watermark with a variety of fonts, sizes, and styles, ensuring that your branding shines through.
+                            Watermarkify is a simple, free and open-source online tool designed to help you effortlessly add watermarks or copyright notices to your images and photos. With an easy-to-use and simple interface, Watermarkify allows you to customize your watermark with a variety of fonts, sizes, and styles, ensuring that your branding shines through.
                             <br><br>
                             Whether you’re a photographer, artist, or content creator, Watermarkify makes it easy to protect your creative work. Simply upload your image, choose your watermark settings, and apply it in just a few clicks. The tool is perfect for anyone looking to safeguard their intellectual property while maintaining a professional look.
                         </p>
